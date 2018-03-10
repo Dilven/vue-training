@@ -1,28 +1,9 @@
 <template>
     <div> 
-        <form @submit.prevent="addItem()">
-            <v-btn color="success" @click="addItem()">Dodaj</v-btn>
-            <input v-model="item" name="product" v-validate="'required|min:3'" placeholder="Dodaj produkt"/>
-            <p>{{item}}</p>
-            <div v-show="errors.has('product')">
-                {{ errors.first('product') }}
-            </div>
-        </form>
-        <ol>
-            <li :key="product.id" v-for="(product, index) in products">{{product.id}} {{ product.name }}
-                <v-btn color="error" @click="removeItem(index)">Usun</v-btn> 
-            </li>
-        </ol>
-        <form @submit.prevent="onAddItemOrder()">
-            <select class="select" v-model="selected">
-                <option :value="product.id" :key="product.id" v-for="product in products">{{ product.name }}</option>
-            </select>
-            <v-btn color="succes" @click="onAddItemOrder()"> Dodaj do zamówienia</v-btn>
-        </form>
-        <ul>
-            <li :key="orderItem.id" v-for="orderItem in orderItems">{{orderItem.name}}</li>
-            <p v-if="!orderItems.length">No products!</p>
-        </ul>
+        <add-product @onAddProduct="handleAddProduct"></add-product>
+        <products-list :products="products" @onRemoveItem="handleRemoveItem"></products-list>
+        <add-item-order :products="products" @onAddItemOrder="handleAddItemOrder"> </add-item-order>
+        <order-list :orderItems="orderItems" ></order-list>
     </div>
 </template>
 <script>
@@ -35,7 +16,7 @@ import AddProduct from  '../components/AddProduct.vue';
 
 export default {
     name: 'Products',
-    component: {
+    components: {
         ProductsList,
         OrderList,
         AddItemOrder,
@@ -58,27 +39,17 @@ export default {
 
     methods: {
 
-        addItem() {
-
-            this.$validator.validateAll().then(result => {
-                if (!result) {
-                return;
-            }
-            const itemId = this.products.length;
-            this.products.push({id:itemId, name:this.item});
-            this.item = "";
-            this.$validator.reset();
-            console.log(this.products)
-            });
+        handleAddProduct(product) {
+            this.products.push(product);
         },
-        
-        removeItem(index) {
+
+        handleRemoveItem(index) {
             this.products.splice(index, 1)
         },
         
-        onAddItemOrder() {
+        handleAddItemOrder(selected) {
 
-            const item = _.find(this.products, ['id', this.selected])
+            const item = _.find(this.products, ['id', selected])
             this.orderItems.push(item)
         }
     } 

@@ -9,7 +9,11 @@
 
 export default {
     name: 'OrderList',
-    orderItems: []
+    props: {
+        orderItems: {
+            type: Array,
+        }
+    }
 }
 
 </script>

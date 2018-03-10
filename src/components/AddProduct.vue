@@ -1,8 +1,11 @@
 <template>
-    <form @submit.prevent="addItem()">
-        <v-btn color="success" @click="addItem()">Dodaj</v-btn>
-        <input v-model="item" name="product" v-validate="'required|min:3'" placeholder="Dodaj produkt"/>
-        <p>{{item}}</p>
+    <form @submit.prevent="onSubmit()">
+        <input
+        name="product"
+        v-model="newProduct.name"
+        v-validate="'required|min:3'"
+        >
+        <button>Add</button>
         <div v-show="errors.has('product')">
             {{ errors.first('product') }}
         </div>
@@ -11,11 +14,14 @@
 
 <script>
 
+    import uuid from 'uuid';
     export default {
-        name: 'AddProduct',
+        name: "AddProduct",
         data() {
             return {
-                item: "",
+                newProduct: {
+                    name: ""
+                }   
             }
         },
 
@@ -27,8 +33,12 @@
                         return;
                     }
 
-                    this.$emit('addItem', {
+                    this.$emit('onAddProduct', {
+                        id: uuid(),
+                        ...this.newProduct
                     });
+                    this.item = "";
+                    this.$validator.reset();
                 });
             }
         }

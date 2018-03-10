@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "lodash": "^4.17.5",
+    "uuid": "^3.2.1",
     "v": "^0.3.0",
     "vee-validate": "^2.0.5",
     "vue": "^2.5.13",
