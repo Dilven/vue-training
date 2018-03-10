@@ -9,7 +9,7 @@
 <script>
 
     export default {
-        name: ProductsList,
+        name: 'ProductsList',
         products: [],
     }
 </script>

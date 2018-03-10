@@ -9,7 +9,7 @@
 
 <script>
     export default {
-        name: AddItemOrder,
+        name: 'AddItemOrder',
         method: {
             onAddItemOrder() {
                 console.log('AddItemOrder');

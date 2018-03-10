@@ -28,8 +28,19 @@
 <script>
 import _ from 'lodash';
 
+import ProductsList from '../components/ProductsList.vue';
+import OrderList from '../components/OrderList.vue';
+import AddItemOrder from '../components/AddItemOrder';
+import AddProduct from  '../components/AddProduct.vue';
+
 export default {
     name: 'Products',
+    component: {
+        ProductsList,
+        OrderList,
+        AddItemOrder,
+        AddProduct
+    },
     data() {
         return {
             products: [{
@@ -53,8 +64,11 @@ export default {
                 if (!result) {
                 return;
             }
+            const itemId = this.products.length;
+            this.products.push({id:itemId, name:this.item});
             this.item = "";
             this.$validator.reset();
+            console.log(this.products)
             });
         },
         

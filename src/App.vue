@@ -9,21 +9,13 @@
 
 <script>
 import HelloWorld from './components/HelloWorld.vue';
-import Products from './components/Products.vue';
-import ProductsList from './components/ProductsList.vue';
-import OrderList from './components/OrderList.vue';
-import AddItemOrder from './components/AddItemOrder';
-import AddProduct from  './components/AddProduct.vue';
+import Products from './pages/Products.vue';
 
 export default {
   name: 'app',
   components: {
     HelloWorld,
     Products,
-    ProductsList,
-    OrderList,
-    AddItemOrder,
-    AddProduct
   }
 }
 </script>

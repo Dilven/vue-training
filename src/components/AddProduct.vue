@@ -12,7 +12,7 @@
 <script>
 
     export default {
-        name: AddProduct,
+        name: 'AddProduct',
         data() {
             return {
                 item: "",
@@ -21,8 +21,15 @@
 
         methods: {
 
-            addItem() {
-                console.log('AddProduct');
+            onSubmit() {
+                this.$validator.validateAll().then(result => {
+                    if (!result) {
+                        return;
+                    }
+
+                    this.$emit('addItem', {
+                    });
+                });
             }
         }
     }
